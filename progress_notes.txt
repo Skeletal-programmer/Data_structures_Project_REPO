@@ -1,0 +1,10 @@
+#Note 1
+Date: 11/1/26 
+Change: Made initial graph after beta tests using basic version of code
+Test: Tested small_test.csv which gave me 10 airports 15 flights
+
+
+#Note 2: 
+Date: 11/3/26
+Change: Implemented CSV parsing function to separate 6 columns to handle commas inside quoted city names, and implemented airport lookup using airport vector.
+
