@@ -166,9 +166,31 @@ Graph load_graph(const std::string& filename) {
 // Display destination, distance and cost for every outgoing flight.
 // Report an unknown code without ending the program.
 void show_outgoing(const Graph& graph, const std::string& code) {
-    (void)graph;
-    (void)code;
-    throw std::logic_error("TODO: display outgoing flights");
+
+    int index = find_airport(graph, code);
+
+    // Check whether airport exists
+    if (index == -1) {
+        std::cout << "Unknown airport: " << code << '\n';
+        return;
+    }
+
+    const Airport& airport = graph.airports[index];
+
+    std::cout << "\nOutgoing flights from "
+              << airport.code << ":\n";
+
+    // Check if airport has outgoing flights
+    if (airport.outgoing.empty()) {
+        std::cout << "No outgoing flights.\n";
+        return;
+    }
+
+    // Display evry outgoing flight
+    for (const Flight& flight : airport.outgoing) {
+
+        std::cout << "Destination: "<< flight.destination<< " | Distance: "<< flight.distance<< " | Cost: " << flight.cost << '\n';
+    }
 }
 
 int main(int argc, char* argv[]) {
