@@ -126,6 +126,10 @@ Graph load_graph(const std::string& filename) {
     if (!std::getline(file, line)) { //Read one line
         throw std::runtime_error("CSV file is empty");
     }
+    //Fixes header comparison
+    if (!line.empty() && line.back() == '\r') {
+        line.pop_back();
+    }
 
     std::vector<std::string> expected_header = {"Origin_airport","Destination_airport","Origin_city","Destination_city","Distance","Cost"}; //6 Expected headers
 
@@ -137,6 +141,10 @@ Graph load_graph(const std::string& filename) {
 
     // Read remaning CSV rows
     while (std::getline(file, line)) {
+
+        if (!line.empty() && line.back() == '\r') { //Ensures every CSV row is cleaned not just header fixed
+            line.pop_back();
+        }
 
         line_number++;
 
