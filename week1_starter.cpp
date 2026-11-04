@@ -55,10 +55,16 @@ std::vector<std::string> parse_row(const std::string& row) {
 }
 
 // Find an airport by code; return its index or -1 when it is absent.
-int find_airport(const Graph& graph, const std::string& code) {
-    (void)graph;
-    (void)code;
-    throw std::logic_error("TODO: implement airport lookup");
+int find_airport(const Graph& graph, const std::string& code){ //Search evry airport
+
+    for (size_t i = 0; i < graph.airports.size(); i++) {
+
+        if (graph.airports[i].code == code) { //Chack airport code if matches requested code
+            return static_cast<int>(i);
+        }
+    }
+
+    return -1; //Airport doesn't exist
 }
 
 // Add both endpoint vertices if needed, then add ONE directed flight.
