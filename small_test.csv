@@ -1,0 +1,16 @@
+Origin_airport,Destination_airport,Origin_city,Destination_city,Distance,Cost
+ABC,BCD,"ABCville, AB","BCDville, AB",1,2
+ABC,FGH,"ABCville, AB","FGHville, AB",10,12
+BCD,DEF,"BCDville, AB","DEFville, AB",2,32
+DEF,GHJ,"DEFville, AB","GHJville, CD",6,18
+FGH,DEF,"FGHville, AB","DEFville, AB",1,10
+FGH,HJK,"FGHville, AB","HJKville, CD",1,5
+CDE,DEF,"CDEville, CD","DEFville, AB",3,7
+CDE,JKL,"CDEville, CD","JKLville, CD",9,55
+GHJ,CDE,"GHJville, CD","CDEville, CD",3,42
+GHJ,HJK,"GHJville, CD","HJKville, CD",4,13
+EFG,FGH,"EFGville, CD","FGHville, AB",1,3
+HJK,KLM,"HJKville, CD","KLMville, CD",3,54
+HJK,GHJ,"HJKville, CD","GHJville, CD",5,10
+JKL,KLM,"JKLville, CD","KLMville, CD",8,102
+KLM,CDE,"KLMville, CD","CDEville, CD",4,10
