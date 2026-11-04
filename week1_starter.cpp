@@ -112,8 +112,55 @@ void add_flight(Graph& graph, const std::vector<std::string>& fields) {
 
 // Open the named file, read the header and rows, and build the graph.
 Graph load_graph(const std::string& filename) {
-    (void)filename;
-    throw std::logic_error("TODO: implement file loading");
+
+    std::ifstream file(filename); //Opens CSV
+
+    if (!file.is_open()) { //Checks whether file open
+        throw std::runtime_error("Could not open file: " + filename);
+    }
+
+    Graph graph;
+    std::string line;
+
+    // Read CSV header
+    if (!std::getline(file, line)) { //Read one line
+        throw std::runtime_error("CSV file is empty");
+    }
+
+    std::vector<std::string> expected_header = {"Origin_airport","Destination_airport","Origin_city","Destination_city","Distance","Cost"}; //6 Expected headers
+
+    if (parse_row(line) != expected_header) { //Seperates 6 fields
+        throw std::runtime_error("Invalid CSV header");
+    }
+
+    int line_number = 1;
+
+    // Read remaning CSV rows
+    while (std::getline(file, line)) {
+
+        line_number++;
+
+        // Ignore blank lines
+        if (line.find_first_not_of(" \t\r\n") == std::string::npos) {
+            continue;
+        }
+
+        try {
+            std::vector<std::string> fields = parse_row(line);
+            add_flight(graph, fields);
+        }
+        catch (const std::exception& error) {
+            throw std::runtime_error(
+                "Error on line " + std::to_string(line_number)
+                + ": " + error.what()
+            );
+        }
+    }
+
+    if (file.bad()) {
+        throw std::runtime_error("Error reading CSV file");
+    }
+    return graph;
 }
 
 // Display destination, distance and cost for every outgoing flight.
