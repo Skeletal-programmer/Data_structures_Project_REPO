@@ -35,8 +35,11 @@ std::vector<std::string> parse_row(const std::string& row) {
     return fields;
 }
 
+
 int main() {
-    std::string test = "ABC,BCD,\"Allentown, PA\",City B,1,2";
+    std::string test = "ABC,BCD,\"Allentown, PA\",City B,1,2"; //TODO 1 test
+    std::cout << find_airport(graph, "ABC") << '\n'; //TODO 2 tests
+    std::cout << find_airport(graph, "XYZ") << '\n';
 
     try {
         std::vector<std::string> fields = parse_row(test);
