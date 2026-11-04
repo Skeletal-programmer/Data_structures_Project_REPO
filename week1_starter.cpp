@@ -94,6 +94,20 @@ void add_flight(Graph& graph, const std::vector<std::string>& fields) {
         graph.airports.push_back(new_airport); //Add new airport to graph
         origin_index = static_cast<int>(graph.airports.size() - 1); //Retieves new airports index
     }
+    int destination_index = find_airport(graph, destination); //Search for dest
+
+    if (destination_index == -1) { //Check if index missing
+        Airport new_airport; //Create new airport
+        new_airport.code = destination;
+        graph.airports.push_back(new_airport); //Add to the graph
+    }
+    Flight flight; //Creates actual flight
+
+    flight.destination = destination;
+    flight.distance = distance;
+    flight.cost = cost;
+    graph.airports[origin_index].outgoing.push_back(flight); //Adds flight to graph
+    graph.flight_count++; //Increment flight count
 }
 
 // Open the named file, read the header and rows, and build the graph.
