@@ -69,9 +69,31 @@ int find_airport(const Graph& graph, const std::string& code){ //Search evry air
 
 // Add both endpoint vertices if needed, then add ONE directed flight.
 void add_flight(Graph& graph, const std::vector<std::string>& fields) {
-    (void)graph;
-    (void)fields;
-    throw std::logic_error("TODO: validate and add the directed flight");
+    if (fields.size() != 6) { //Checks vector for 6 fields
+        throw std::runtime_error("Invalid flight row");
+    }
+    
+    std::string origin = fields[0]; //Extract airport codes
+    std::string destination = fields[1];
+    
+    if (origin.empty() || destination.empty()) { //Validate airport codes
+        throw std::runtime_error("Airport code cannot be empty");
+    }
+    
+    int distance = std::stoi(fields[4]); //Extract distance/cost
+    int cost = std::stoi(fields[5]);
+    
+    if (distance <= 0 || cost <= 0) { //Validate distance and cost
+        throw std::runtime_error("Distance and cost must be positive");
+    }
+    int origin_index = find_airport(graph, origin); //Search for origin airport
+
+    if (origin_index == -1) { //Check if missing
+        Airport new_airport; //Make new airport if missing
+        new_airport.code = origin;
+        graph.airports.push_back(new_airport); //Add new airport to graph
+        origin_index = static_cast<int>(graph.airports.size() - 1); //Retieves new airports index
+    }
 }
 
 // Open the named file, read the header and rows, and build the graph.
